@@ -32,7 +32,7 @@ void infixtoPrefix(char* infix, char* prefix); // You should not change the prot
 int precedence(char op); // You may use this utility function or rewrite your own precedence () function
 
 // Utility function to reverse string
-void reverse(char *str);
+// void reverse(char *str);
 
 ////////////////////////////////////////////////////////////////////////////
 void push(Stack *s, char item);
@@ -73,7 +73,24 @@ void infixtoPrefix(char* infix, char* prefix)
 
 	// Overall procedure:
 	// Reverse infix expr, convert to postfix, then reverse result
-	reverse(infix);
+
+	char *temp1 = infix; // To add each char to stack
+	char *temp2 = infix; // To replace each char of word
+
+	// Reverse infix expression
+	while (*temp1 != '\0') {
+		// Interchange brackets
+		if (*temp1 == '(') *temp1 = ')';
+		else if (*temp1 == ')') *temp1 = '(';
+
+		push(&s, *temp1);
+		temp1++;
+	}
+
+	while (!isEmptyStack(&s)) {
+		*temp2 = pop(&s);
+		temp2++;
+	}
 
 	// Add initial open bracket
 	push(&s, '(');
@@ -81,7 +98,7 @@ void infixtoPrefix(char* infix, char* prefix)
 	char c;
 	char *temp = prefix;
 
-	// Traverse infix expression
+	// Traverse infix expression, convert to nearly postfix form
 	while (1) {
 		// Replace null character with close bracket
 		c = (*infix == '\0') ? ')' : *infix;
@@ -126,7 +143,23 @@ void infixtoPrefix(char* infix, char* prefix)
 	}
 
 	*temp = '\0';
-	reverse(prefix);
+
+	// Reverse prefix expression
+	temp1 = temp2 = prefix;
+
+	while (*temp1 != '\0') {
+		// Interchange brackets
+		if (*temp1 == '(') *temp1 = ')';
+		else if (*temp1 == ')') *temp1 = '(';
+
+		push(&s, *temp1);
+		temp1++;
+	}
+
+	while (!isEmptyStack(&s)) {
+		*temp2 = pop(&s);
+		temp2++;
+	}
 }
 
 
@@ -144,28 +177,28 @@ int precedence(char op) {
 }
 
 
-void reverse(char *str) {
-	Stack s;
+// void reverse(char *str) {
+// 	Stack s;
 
-	s.ll.head = NULL;
-	s.ll.size = 0;
+// 	s.ll.head = NULL;
+// 	s.ll.size = 0;
 
-	char *temp = str;
+// 	char *temp = str;
 
-	while (*temp != '\0') {
-		// Interchange brackets
-		if (*temp == '(') *temp = ')';
-		else if (*temp == ')') *temp = '(';
+// 	while (*temp != '\0') {
+// 		// Interchange brackets
+// 		if (*temp == '(') *temp = ')';
+// 		else if (*temp == ')') *temp = '(';
 
-		push(&s, *temp);
-		temp++;
-	}
+// 		push(&s, *temp);
+// 		temp++;
+// 	}
 
-	while (!isEmptyStack(&s)) {
-		*str = pop(&s);
-		str++;
-	}
-}
+// 	while (!isEmptyStack(&s)) {
+// 		*str = pop(&s);
+// 		str++;
+// 	}
+// }
 
 /////////////////////////////////////////////////////////////////////
 
