@@ -82,10 +82,8 @@ void infixtoPostfix(char *infix, char *postfix)
 			}
 
 		// Push to stack if:
-		// stack is empty / current op is open bracket / has higher precedence
-		else if (isEmptyStack(&s) || 
-		        (c == '(') || 
-		        (precedence(c) > precedence(peek(&s)))) {
+		// current op is open bracket or has higher precedence
+		else if ((c == '(') || (precedence(c) > precedence(peek(&s)))) {
 			push(&s, c);
 		}
 
