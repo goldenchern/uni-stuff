@@ -128,8 +128,6 @@ int Connected (Graph g)
         if (!g.visited[i]) {
             return 0;
         }
-        // Mark each node unvisited for next search iteration
-        g.visited[i] = 0;
     }
 
     return 1;
