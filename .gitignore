@@ -1,0 +1,5 @@
+*.exe, *.txt
+
+# TODO: make following changes
+# 1. Removed .exe files
+# 2. Moved .gitignore to main folder
